@@ -16,4 +16,4 @@
 
 #show heading: set block(above: 2em)
 
-#include "lit_review_template.typ"
+#include "lit_review/lit_review_template.typ"
