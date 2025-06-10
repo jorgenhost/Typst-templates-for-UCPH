@@ -72,17 +72,15 @@
 #columns(
   2,
   [
-    #pop.column-box(heading: "Columbidae")[
-      'Columbidae is a bird family consisting of doves and pigeons.
-      It is the only family in the order Columbiformes.'
-      #cite(<wiki:Columbidae>)
+    #pop.column-box(heading: "Look at this")[
+      Built on 'Peace of Posters' #cite(<poster_repo>)
 
       #figure(
         caption: [
-          Pink-necked green pigeon #cite(<wiki:File:Treron_vernans_male_-_Kent_Ridge_Park.jpg>).
+          Econ papers.
         ],
       )[
-        #image("Treron_vernans_male_-_Kent_Ridge_Park.jpg", width: 40%)
+        #image("econ_papers.png", width: 40%)
       ]
     ]
 
@@ -96,7 +94,7 @@
     #bba.insert("stroke", (paint: gradient.linear(green, red, blue), thickness: 10pt))
 
     #pop.column-box(
-      heading: "Biological Information",
+      heading: "Tablez",
       heading-box-args: hba,
       body-box-args: bba,
     )[
@@ -104,14 +102,8 @@
         columns: (auto, 1fr),
         inset: 0.5cm,
         stroke: (x, y) => if y >= 0 { (bottom: 0.2pt + black) },
-        [Domain], [Eukaryota],
-        [Kingdom], [Animalia],
-        [Phylum], [Chordata],
-        [Class], [Aves],
-        [Clade], [Columbimorphae],
-        [Order], [Columbiformes],
-        [Family], [Columbidae],
-        [Type genus], [Columba],
+        [Word1], [Word2],
+        [Word3], [Word4],
       )
 
       This box is styled differently compared to the others.
@@ -144,32 +136,14 @@
     #colbreak()
 
     #pop.column-box(heading: "OLS estimator")[
-      Einstein's brilliant theory of general relativity
-      starts with the field equations #cite(<Einstein1916>).
-      $ G_(mu nu) + Lambda g_(mu nu) = kappa T_(mu nu) $
-      However, they have nothing to do with doves.
+      Very cool, much wow.
+      $ hat(beta) = (X'X)^(-1)X'y $
+
+      #lorem(40)
     ]
 
-    #pop.column-box(heading: "Peace be with you")[
-      #figure(
-        caption: [
-          'Doves [...] are used in many settings as symbols of peace, freedom or love.
-          Doves appear in the symbolism of Judaism, Christianity, Islam and paganism, and of both
-          military and pacifist groups.'
-          #cite(<wiki:Doves_as_symbols>).
-        ],
-      )[
-        #image("peace-dove.png")
-      ]
-    ]
-
-    #pop.column-box(heading: "Etymology")[
-      Pigeon is a French word that derives from the Latin pīpiō, for a 'peeping' chick,
-      while dove is an ultimately Germanic word, possibly referring to the bird's diving flight.
-      The English dialectal word culver appears to derive from Latin columba
-      #cite(<wiki:Online_Etymology_Dictionary>).
-      A group of doves is called a "dule", taken from the French word deuil ('mourning')
-      @Lipton1991-qa.
+    #pop.column-box(heading: "What?")[
+      #lorem(25)
     ]
 
     #pop.column-box()[
