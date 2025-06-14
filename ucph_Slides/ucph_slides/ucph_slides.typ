@@ -1,24 +1,23 @@
-#import "utils.typ": *
+#import "./utils.typ": *
 
 #let theme-color = state("theme-color", none)
 #let sections = state("sections", ())
 
-#let ucph-logo = {
-  set align(bottom + right)
-  image("UCPH-logo_white_hh.png", width: 25%)
+#let ucph-logo(align_arg) = {
+  set align(align_arg)
+  image("ucph_std1.svg", width: 15%)
   v(1cm)
 }
-logo_white_hh
-#let ucph-logo2 = {
-  set align(bottom + right)
-  image("ku_logo_uk_h.png", width: 15%)
-  v(.5cm)
+#let ucph-logo-neg1(align_arg) = {
+  set align(align_arg)
+  image("ucph_std1_neg.svg", width: 15%)
+  v(1cm)
 }
 
-#let typslides(
+#let ucph_slides(
   ratio: "16-9",
-  theme: "bluey",
-  font: "Fira Sans",
+  theme: "ucph",
+  font: "Libertinus Serif",
   link-style: "color",
   body,
 ) = {
@@ -31,22 +30,26 @@ logo_white_hh
   set text(font: font)
   set page(paper: "presentation-" + ratio, fill: white)
 
-  show ref: it => (
-    context {
-      text(fill: theme-color.get())[#it]
-    }
-  )
+  show ref: it => {
+    show regex("\d{4}"): set text(blue)
+    it
+  }
+
+  show cite: it => {
+    show regex("\d{4}"): set text(blue)
+    it
+  }
 
   show link: it => (
     context {
       if it.has("label") {
-        text(fill: theme-color.get())[#it]
+        text(fill: black)[#it]
       } else if link-style == "underline" {
-        underline(stroke: theme-color.get())[#it]
+        underline(stroke: black)[#it]
       } else if link-style == "both" {
-        text(fill: theme-color.get(), underline[#it])
+        text(fill: black, underline[#it])
       } else {
-        text(fill: theme-color.get())[#it]
+        text(fill: black)[#it]
       }
     }
   )
@@ -216,17 +219,25 @@ logo_white_hh
 
 #let table-of-contents(
   title: "Contents",
-  text-size: 23pt,
+  text-size: 20pt,
 ) = (
   context {
-    text(size: 42pt, weight: "bold")[
+    set page(
+      footer: ucph-logo(right),
+      margin: if title != none {
+        (x: 1.6cm, top: 2.5cm, bottom: 2.5cm)
+      } else {
+        (x: 1.6cm, top: 1.75cm, bottom: 2.5cm)
+      },
+    )
+    text(size: 35pt, weight: "bold")[
       #smallcaps(title)
       #v(-.9cm)
       #_divider(color: theme-color.get())
     ]
 
     set text(size: text-size)
-
+    v(-.9cm)
     show linebreak: none
 
     let sections = query(<section>)
@@ -258,8 +269,6 @@ logo_white_hh
         ),
       )
     }
-
-    pagebreak()
   }
 )
 
@@ -271,6 +280,7 @@ logo_white_hh
 ) = (
   context {
     register-section(body)
+    set page(footer: ucph-logo(right), margin: (x: 2cm, top: 2.5cm, bottom: 2.8cm))
     show heading: text.with(size: text-size, weight: "semibold")
 
     set align(left + horizon)
@@ -291,7 +301,7 @@ logo_white_hh
   body,
 ) = (
   context {
-    set page(fill: theme-color.get(), footer: ucph-logo, margin: (bottom: 80pt))
+    set page(fill: theme-color.get(), footer: ucph-logo-neg1(right), margin: (bottom: 80pt))
 
 
     set text(
@@ -336,17 +346,17 @@ logo_white_hh
         ]
       ],
       margin: if title != none {
-        (x: 1.6cm, top: 2.5cm, bottom: 2.2cm)
+        (x: 1.6cm, top: 2.5cm, bottom: 2.5cm)
       } else {
-        (x: 1.6cm, top: 1.75cm, bottom: 2.2cm)
+        (x: 1.6cm, top: 1.75cm, bottom: 2.5cm)
       },
       background: place(_slide-header(title, outlined, theme-color.get())),
-      footer: ucph-logo2,
+      footer: ucph-logo(right),
     )
 
-    set list(marker: text(theme-color.get(), [•]))
+    // set list(marker: text(theme-color.get(), [•]))
 
-    set enum(numbering: (it => context text(fill: theme-color.get())[*#it.*]))
+    // set enum(numbering: (it => context text(fill: theme-color.get())[*#it.*]))
 
     set text(size: 20pt)
     set par(justify: true)
@@ -396,10 +406,14 @@ logo_white_hh
   title: "References",
 ) = (
   context {
-    set text(size: 19pt)
+    set page(
+      footer: ucph-logo(right),
+      margin: (top: 2cm, bottom: 2.5cm),
+    )
+    set text(size: 16pt)
     set par(justify: true)
 
-    set bibliography(title: text(size: 30pt)[#smallcaps(title) #v(-.85cm) #_divider(color: theme-color.get()) #v(.5cm)])
+    set bibliography(title: text(size: 25pt)[#smallcaps(title) #v(-.85cm) #_divider(color: theme-color.get()) #v(.5cm)])
 
     bib-call
   }
