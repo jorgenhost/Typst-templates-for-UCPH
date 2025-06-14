@@ -1,5 +1,5 @@
-#import "typslides.typ": (
-  typslides,
+#import "./ucph_slides.typ": (
+  ucph_slides,
   front-slide,
   table-of-contents,
   title-slide,

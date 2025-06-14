@@ -1,3 +1,6 @@
+
+*BELOW IS THE TYPSLIDES README*
+
 <p align="center">
     <img src="img/logo.png" alt="logo" width="400"/>
 </p>

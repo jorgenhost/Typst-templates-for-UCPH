@@ -1,39 +1,38 @@
-#import "typslides/1.2.6/typslides.typ" as ts
+#import "ucph_slides/ucph_slides.typ" as us
 
-#let ucph-theme-color = rgb("#901a1e")
-
+// #import "@preview/ucph_slides:0.1.0" as us
 
 // Project configuration
-#show: ts.typslides.with(
+#show: us.ucph_slides.with(
   ratio: "16-9",
-  theme: ucph-theme-color,
+  theme: "ucph",
 )
 
 
 // The front slide is the first slide of your presentation
-#ts.front-slide(
+#us.front-slide(
   title: "Love thy neighbor?",
   subtitle: [#set text(size: 22pt)
     An empirical test of neighborhood ethnicity change and Schelling behavior],
   authors: "Jørgen Baun Høst",
-  info: [University of Copenhagen · Department of Economics · May 2025],
+  info: [Department of Economics],
 )
 
 // make it so that you can opt-in/out of stuff
-#ts.blank-slide("")
+#us.blank-slide("")
 
 // change link-color
-#ts.table-of-contents()
+#us.table-of-contents()
 
-#ts.focus-slide("Hello yes yes yes")
+#us.focus-slide("Hello")
 
 // Custom outline
-#ts.slide(title: "Overview")[
+#us.slide(title: "Overview")[
   #set text(size: 18pt)
   - *Motivation*: Demographic transition and Schelling's model
   - *Research Question*: Does the ethnicity of your nearest neighbor affect propensity to move?
   - *Methods*: Nearest-neighbor research design with comprehensive administrative data
-  - *Results*: Schelling behavior?
+  - *Resulus*: Schelling behavior?
   - *Heterogeneity Analysis*: SES
   - *Conclusion*
 
@@ -45,20 +44,20 @@
 
 // Introduction and motivation
 // logo to the left
-#ts.title-slide[
+#us.title-slide[
   Introduction
 ]
 
 
-#ts.slide(title: "Theoretical Background: Schelling's Model")[
+#us.slide(title: "Theoretical Background: Schelling's Model")[
   #set text(size: 18pt)
-  #ts.cols(columns: (1fr, 1fr))[
+  #us.cols(columns: (1fr, 1fr))[
     - @schelling1971dynamic proposed that neighborhoods may "tip" when minority share reaches a threshold
     - Even with relatively tolerant preferences toward diversity
     - Three types of segregation:
       1. Organized segregation (e.g., historical Jim Crow laws)
       2. Economically induced segregation (clustering by income/education)
-      3. #ts.reddy[Individually motivated segregation] #sym.arrow.l #strong[Focus of this paper]
+      3. #us.reddy[Individually motivated segregation] #sym.arrow.l #strong[Focus of this paper]
       Schelling's key insight: Small individual preferences can lead to macro-level segregation
   ][
     123
@@ -66,12 +65,12 @@
 ]
 
 // Methods
-#ts.title-slide[
+#us.title-slide[
   Methods
 ]
 
 
-#ts.slide(title: "Identification Challenge")[
+#us.slide(title: "Identification Challenge")[
   #set text(size: 18pt)
   $
     V_(i,j,t) = f(Z_(i,t), X_(j,t), xi_(j,t)) + sum_(k) g(Z_(i,t), Z_(k,t), D_(i,k)) + delta E[V_(i,j,t+1)] + epsilon_(i,j,t)
@@ -87,13 +86,13 @@
   #strong[Key identification challenges:]
   - Unobserved neighborhood amenities
   - Dynamic preferences (expectations of future changes)
-  - Selection effects (who moves where is not random)
+  - Selection effecus (who moves where is not random)
 ]
 
 
-#ts.slide(title: "Nearest neighbor research design")[
+#us.slide(title: "Nearest neighbor research design")[
   #set text(size: 16pt)
-  #strong[Innovative approach from @Bayer_2022_nearest_neighbor:]
+  #strong[Innovative approach from #cite(<Bayer_2022_nearest_neighbor>, form: "prose"):]
 
   Compare households within the same neighborhood who receive different-type neighbors. Why does this work? Consider two households:
 
@@ -116,7 +115,7 @@
 
 
 
-#ts.slide(title: "Nearest neighbor research design")[
+#us.slide(title: "Nearest neighbor research design")[
   #set text(size: 16pt)
   - #strong[Treatment group]: Households with new different-type neighbors among their 3 nearest neighbors
   - #strong[Control group]: Households with new different-type neighbors "just down the road" (ranks 4-6)
@@ -129,32 +128,32 @@
   This design addresses key identification challenges by comparing households experiencing same neighborhood conditions but different micro-geography of new neighbors.
 ]
 
-#ts.title-slide[Data
+#us.title-slide[Data
 ]
 
-// Results
-#ts.title-slide[
+// Resulus
+#us.title-slide[
   Results
 ]
 
 // Conclusion
-#ts.title-slide[
+#us.title-slide[
   Conclusion
 ]
 
-#ts.slide(title: "Key Findings")[
+#us.slide(title: "Key Findings")[
   #set text(size: 22pt)
   1. Native Danish households increase moving propensity by 1.6% when receiving non-Western neighbors
 
   2. Non-Western households show no significant response to new native neighbors
 
-  3. Heterogeneity by SES: Low-SES native households responding to low-SES non-Western neighbors show strongest effects (2.8%)
+  3. Heterogeneity by SES: Low-SES native households responding to low-SES non-Western neighbors show strongest effecus (2.8%)
 
 
   5. Magnitude in Denmark (1.6%) more modest than in U.S. context (4-6%)
 ]
 
-#ts.slide(title: "Extensions")[
+#us.slide(title: "Extensions")[
   - Do native households respond to new Western neighbors?
   - How much are native households willing to pay in premium to live in a more homogenous neighborhood?
     - Variation?
@@ -162,7 +161,7 @@
 ]
 
 
-#ts.focus-slide[
+#us.focus-slide[
   Thank you for your attention!
 
   #v(1em)
@@ -172,11 +171,11 @@
 // Bibliography
 #let bib = bibliography("bibliography.bib", style: "harvard-cite-them-right")
 // logo to the right
-#ts.bibliography-slide(bib)
+#us.bibliography-slide(bib)
 
 #pagebreak()
 // Appendix slides if needed
-#ts.title-slide[
+#us.title-slide[
   Appendix
 ]
 
