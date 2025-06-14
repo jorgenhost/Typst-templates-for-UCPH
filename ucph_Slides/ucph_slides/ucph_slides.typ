@@ -280,7 +280,7 @@
 ) = (
   context {
     register-section(body)
-    set page(footer: ucph-logo(right), margin: (x: 2cm, top: 2.5cm, bottom: 2.8cm))
+    set page(footer: ucph-logo(right), margin: (x: 2cm, top: 2.5cm, bottom: 2.5cm))
     show heading: text.with(size: text-size, weight: "semibold")
 
     set align(left + horizon)
