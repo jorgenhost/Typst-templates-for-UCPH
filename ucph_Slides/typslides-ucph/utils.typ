@@ -20,21 +20,9 @@
   v(1cm)
 }
 
-#let ucph-logo_left = {
-  set align(bottom + left)
-  image("logos/ucph_1_standard.svg", width: 15%)
-  v(1cm)
-}
-
 #let ucph-logo = {
   set align(bottom + right)
   image("logos/ucph_1_standard.svg", width: 15%)
-  v(1cm)
-}
-#let ucph-logo-neg1 = {
-  set align(bottom + right)
-  h(25cm)
-  image("logos/ucph_1_negative.svg", width: 15%)
   v(1cm)
 }
 
