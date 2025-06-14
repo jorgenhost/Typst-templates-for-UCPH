@@ -1,4 +1,4 @@
-#import "./ucph_slides.typ": (
+#import "typslides-ucph.typ": (
   ucph_slides,
   front-slide,
   table-of-contents,

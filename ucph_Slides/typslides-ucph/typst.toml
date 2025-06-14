@@ -1,0 +1,17 @@
+[package]
+name = "typslides-ucph"
+version = "0.1.0"
+entrypoint = "lib.typ"
+compiler = "0.13.0"
+authors = ["Jørgen Baun Høst <https://github.com/jorgenhost>"]
+license = "GPL-3.0"
+description = "Minimalistic Typst slides."
+repository = "https://github.com/jorgenhost/Typst-templates-for-UCPH/tree/main/ucph_Slides"
+keywords = ["slides", "presentation", "Copenhagen"]
+categories = ["presentation", "layout", "components"]
+exclude = ["img", ".github"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "xxx.png"
