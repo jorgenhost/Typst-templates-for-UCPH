@@ -5,12 +5,12 @@
 
 #let ucph-logo(align_arg) = {
   set align(align_arg)
-  image("ucph_std1.svg", width: 15%)
+  image("logos/ucph_1_standard.svg", width: 15%)
   v(1cm)
 }
 #let ucph-logo-neg1(align_arg) = {
   set align(align_arg)
-  image("ucph_std1_neg.svg", width: 15%)
+  image("logos/ucph_1_negative.svg", width: 15%)
   v(1cm)
 }
 
