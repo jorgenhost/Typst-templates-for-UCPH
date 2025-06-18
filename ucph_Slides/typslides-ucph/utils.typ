@@ -1,17 +1,3 @@
-#let _theme-colors = (
-  bluey: rgb("3059AB"),
-  reddy: rgb("BF3D3D"),
-  greeny: rgb("28842F"),
-  yelly: rgb("C4853D"),
-  purply: rgb("862A70"),
-  dusky: rgb("1F4289"),
-  ucph: rgb("#901a1e"),
-  darky: black,
-)
-
-#let _theme-colors-text = (
-  ucph: rgb("#666666"),
-)
 //************************************************************************\\
 
 #let ucph-logo_wide = {

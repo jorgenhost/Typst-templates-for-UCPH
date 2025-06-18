@@ -1,7 +1,9 @@
 #import "./utils.typ": *
-
+#import "./colors.typ": *
 #let theme-color = state("theme-color", none)
 #let sections = state("sections", ())
+
+#let ucph-base-color = ucph_dark.red
 
 #let ucph-logo(align_arg) = {
   set align(align_arg)
@@ -16,16 +18,12 @@
 
 #let ucph_slides(
   ratio: "16-9",
-  theme: "ucph",
+  theme: ucph-base-color,
   font: "Libertinus Serif",
   link-style: "color",
   body,
 ) = {
-  if type(theme) == str {
-    theme-color.update(_theme-colors.at(theme))
-  } else {
-    theme-color.update(theme)
-  }
+  theme-color.update(theme)
 
   set text(font: font)
   set page(paper: "presentation-" + ratio, fill: white)
@@ -69,13 +67,13 @@
 
 // Theme colors
 
-#let themey(body) = context (text(fill: theme-color.get())[#body])
-#let bluey(body) = (text(fill: rgb("3059AB"))[#body])
-#let greeny(body) = (text(fill: rgb("28842F"))[#body])
-#let reddy(body) = (text(fill: rgb("BF3D3D"))[#body])
-#let yelly(body) = (text(fill: rgb("C4853D"))[#body])
-#let purply(body) = (text(fill: rgb("862A70"))[#body])
-#let dusky(body) = (text(fill: rgb("1F4289"))[#body])
+// #let themey(body) = context (text(fill: theme-color.get())[#body])
+// #let bluey(body) = (text(fill: rgb("3059AB"))[#body])
+// #let greeny(body) = (text(fill: rgb("28842F"))[#body])
+// #let reddy(body) = (text(fill: rgb("BF3D3D"))[#body])
+// #let yelly(body) = (text(fill: rgb("C4853D"))[#body])
+// #let purply(body) = (text(fill: rgb("862A70"))[#body])
+// #let dusky(body) = (text(fill: rgb("1F4289"))[#body])
 
 //***************************************************\\
 
@@ -85,7 +83,8 @@
   }
 )
 
-//***************************************************\\
+//***************************************************\\// Base "class" (?)
+
 
 #let framed(
   title: none,
@@ -200,30 +199,110 @@
 
 #let front-slide(
   title: none,
+  title-size: 40pt,
   subtitle: none,
+  subtitle-size: 24pt,
   authors: none,
+  auhtors-size: 22pt,
   info: none,
+  info-size: 16pt,
+  margin: (bottom: 100pt),
+  align_arg: left + horizon,
+  underline: true,
+  line-color: black,
+  logo: ucph-logo(center + bottom),
 ) = (
   context {
-    _make-frontpage(
-      title,
-      subtitle,
-      authors,
-      info,
-      theme-color.get(),
-    )
+    // _make-frontpage(
+    //   title,
+    //   subtitle,
+    //   authors,
+    //   info,
+    //   theme-color.get(),
+    // )
+    set align(align_arg)
+    if logo != none {
+      set page(
+        footer: image("logos/ucph_1_standard.svg", width: 100%),
+        margin: (x: 1.6cm, top: 2.5cm, bottom: 2.5cm),
+      )
+    } else {
+      set page(margin: margin)
+    }
+    text(title-size, weight: "bold")[#smallcaps(title)]
+
+    v(-.95cm)
+
+    if subtitle != none {
+      set text(subtitle-size)
+      v(.1cm)
+      subtitle
+    }
+
+    let subtext = []
+
+    if authors != none {
+      v(-.5em)
+      subtext += text(auhtors-size, weight: "regular")[#authors]
+    }
+    if info != none {
+      subtext += text(20pt, fill: black, weight: "regular")[#v(-.25cm) #info]
+    }
+
+    if underline == true {
+      line(
+        length: 100%,
+        stroke: 1pt + line-color,
+      )
+      [#subtext]
+    }
   }
 )
+
+
+// #let _make-frontpage(
+//   title,
+//   subtitle,
+//   authors,
+//   info,
+//   theme-color,
+// ) = {
+//   set align(left + horizon)
+//   set page(footer: ucph-logo_wide, margin: margin)
+//   text(40pt, weight: "bold")[#smallcaps(title)]
+
+//   v(-.95cm)
+
+//   if subtitle != none {
+//     set text(24pt)
+//     v(.1cm)
+//     subtitle
+//   }
+
+//   let subtext = []
+
+//   if authors != none {
+//     subtext += text(22pt, weight: "regular")[#authors]
+//   }
+
+//   if info != none {
+//     subtext += text(20pt, fill: black, weight: "regular")[#v(-.15cm) #info]
+//   }
+
+//   _divider(color: black)
+//   [#subtext]
+// }
 
 //*************************************** Content Slide ***************************************\\
 
 #let table-of-contents(
   title: "Contents",
   text-size: 20pt,
+  logo: ucph-logo(right),
 ) = (
   context {
     set page(
-      footer: ucph-logo(right),
+      footer: logo,
       margin: if title != none {
         (x: 1.6cm, top: 2.5cm, bottom: 2.5cm)
       } else {
@@ -303,6 +382,12 @@
   context {
     set page(fill: theme-color.get(), footer: ucph-logo-neg1(right), margin: (bottom: 80pt))
 
+    // // to use gradients
+    // set page(
+    //   fill: gradient.linear(rgb("901a1e"), rgb("0a5963"), angle: 45deg),
+    //   footer: ucph-logo-neg1(right),
+    //   margin: (bottom: 80pt),
+    // )
 
     set text(
       weight: "semibold",
