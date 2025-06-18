@@ -206,29 +206,18 @@
   auhtors-size: 22pt,
   info: none,
   info-size: 16pt,
-  margin: (bottom: 100pt),
+  margin: (left: 2cm, right: 2cm, top: 2cm, bottom: 3.5cm),
   align_arg: left + horizon,
   underline: true,
+  logo: image("logos/ucph_1_wide.svg"),
   line-color: black,
-  logo: ucph-logo(center + bottom),
 ) = (
   context {
-    // _make-frontpage(
-    //   title,
-    //   subtitle,
-    //   authors,
-    //   info,
-    //   theme-color.get(),
-    // )
     set align(align_arg)
-    if logo != none {
-      set page(
-        footer: image("logos/ucph_1_standard.svg", width: 100%),
-        margin: (x: 1.6cm, top: 2.5cm, bottom: 2.5cm),
-      )
-    } else {
-      set page(margin: margin)
-    }
+    set page(
+      footer: logo,
+      margin: margin,
+    )
     text(title-size, weight: "bold")[#smallcaps(title)]
 
     v(-.95cm)
@@ -259,39 +248,6 @@
   }
 )
 
-
-// #let _make-frontpage(
-//   title,
-//   subtitle,
-//   authors,
-//   info,
-//   theme-color,
-// ) = {
-//   set align(left + horizon)
-//   set page(footer: ucph-logo_wide, margin: margin)
-//   text(40pt, weight: "bold")[#smallcaps(title)]
-
-//   v(-.95cm)
-
-//   if subtitle != none {
-//     set text(24pt)
-//     v(.1cm)
-//     subtitle
-//   }
-
-//   let subtext = []
-
-//   if authors != none {
-//     subtext += text(22pt, weight: "regular")[#authors]
-//   }
-
-//   if info != none {
-//     subtext += text(20pt, fill: black, weight: "regular")[#v(-.15cm) #info]
-//   }
-
-//   _divider(color: black)
-//   [#subtext]
-// }
 
 //*************************************** Content Slide ***************************************\\
 
