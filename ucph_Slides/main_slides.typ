@@ -25,6 +25,7 @@
 #ts.table-of-contents()
 
 #ts.focus-slide("Hello")
+#ts.focus-slide2("Hello but with a pretty background")
 
 // Custom outline
 #ts.slide(title: "Overview")[

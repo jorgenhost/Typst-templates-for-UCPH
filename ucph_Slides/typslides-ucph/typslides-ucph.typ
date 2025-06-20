@@ -1,5 +1,7 @@
 #import "./utils.typ": *
 #import "./colors.typ": *
+
+// state or func?
 #let theme-color = state("theme-color", none)
 #let sections = state("sections", ())
 
@@ -344,6 +346,32 @@
     //   footer: ucph-logo-neg1(right),
     //   margin: (bottom: 80pt),
     // )
+
+    set text(
+      weight: "semibold",
+      size: text-size,
+      fill: text-color,
+    )
+
+    set align(center + horizon)
+    _resize-text(body)
+  }
+)
+
+#let focus-slide2(
+  text-color: white,
+  text-size: 60pt,
+  body,
+) = (
+  context {
+    // set page(fill: theme-color.get(), footer: ucph-logo-neg1(right), margin: (bottom: 80pt))
+
+    // // to use gradients
+    set page(
+      fill: gradient.linear(rgb("901a1E"), rgb("122947"), angle: 45deg),
+      footer: ucph-logo-neg1(right),
+      margin: (bottom: 80pt),
+    )
 
     set text(
       weight: "semibold",
