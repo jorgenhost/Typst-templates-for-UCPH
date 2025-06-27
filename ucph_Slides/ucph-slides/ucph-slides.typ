@@ -7,17 +7,6 @@
 
 #let ucph-base-color = ucph_dark.red
 
-#let ucph-logo(align_arg) = {
-  set align(align_arg)
-  image("logos/ucph_1_standard.svg", width: 15%)
-  v(1cm)
-}
-#let ucph-logo-neg1(align_arg) = {
-  set align(align_arg)
-  image("logos/ucph_1_negative.svg", width: 15%)
-  v(1cm)
-}
-
 #let ucph_slides(
   ratio: "16-9",
   theme: ucph-base-color,
@@ -65,20 +54,6 @@
   body
 }
 
-//*************************************** Aux functions ***************************************\\
-
-// Theme colors
-
-// #let themey(body) = context (text(fill: theme-color.get())[#body])
-// #let bluey(body) = (text(fill: rgb("3059AB"))[#body])
-// #let greeny(body) = (text(fill: rgb("28842F"))[#body])
-// #let reddy(body) = (text(fill: rgb("BF3D3D"))[#body])
-// #let yelly(body) = (text(fill: rgb("C4853D"))[#body])
-// #let purply(body) = (text(fill: rgb("862A70"))[#body])
-// #let dusky(body) = (text(fill: rgb("1F4289"))[#body])
-
-//***************************************************\\
-
 #let stress(body) = (
   context {
     text(fill: theme-color.get(), weight: "semibold")[#body]
@@ -90,7 +65,8 @@
 
 #let framed(
   title: none,
-  back-color: none,
+  back-color: rgb("FBF7EE"),
+  framed-color: none,
   content,
 ) = (
   context {
@@ -107,7 +83,7 @@
       set block(width: 100%)
       stack(
         block(
-          fill: theme-color.get(),
+          fill: if framed-color == none { theme-color.get() } else { framed-color },
           inset: (x: .6cm, y: .55cm),
           radius: (top: .2cm, bottom: 0cm),
           stroke: 2pt,
@@ -128,19 +104,17 @@
         ),
       )
     } else {
-      stack(
-        block(
-          width: auto,
-          fill: if back-color != none {
-            back-color
-          } else {
-            rgb("FBF7EE")
-          },
-          radius: (top: .2cm, bottom: .2cm),
-          stroke: 2pt,
-          content,
-        ),
-      )
+      stack(block(
+        width: auto,
+        fill: if back-color != none {
+          back-color
+        } else {
+          rgb("FBF7EE")
+        },
+        radius: (top: .2cm, bottom: .2cm),
+        stroke: 2pt,
+        content,
+      ))
     }
   }
 )
@@ -205,19 +179,19 @@
   subtitle: none,
   subtitle-size: 24pt,
   authors: none,
-  auhtors-size: 22pt,
+  authors-size: 22pt,
   info: none,
   info-size: 16pt,
-  margin: (left: 2cm, right: 2cm, top: 2cm, bottom: 3.5cm),
+  margin: (left: 1cm, right: 1cm, top: 2cm, bottom: 2.5cm),
   align_arg: left + horizon,
   underline: true,
-  logo: image("logos/ucph_1_wide.svg"),
+  logo: align(bottom + center, image("logos/ucph_1_wide.svg", width: 100%)),
   line-color: black,
 ) = (
   context {
     set align(align_arg)
     set page(
-      footer: logo,
+      footer: [#logo #v(0.5cm)],
       margin: margin,
     )
     text(title-size, weight: "bold")[#smallcaps(title)]
@@ -234,7 +208,7 @@
 
     if authors != none {
       v(-.5em)
-      subtext += text(auhtors-size, weight: "regular")[#authors]
+      subtext += text(authors-size, weight: "regular")[#authors]
     }
     if info != none {
       subtext += text(20pt, fill: black, weight: "regular")[#v(-.25cm) #info]
@@ -256,16 +230,16 @@
 #let table-of-contents(
   title: "Contents",
   text-size: 20pt,
-  logo: ucph-logo(right),
+  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
 ) = (
   context {
     set page(
-      footer: logo,
       margin: if title != none {
-        (x: 1.6cm, top: 2.5cm, bottom: 2.5cm)
+        (x: 1.6cm, top: 2.5cm, bottom: 2cm)
       } else {
-        (x: 1.6cm, top: 1.75cm, bottom: 2.5cm)
+        (x: 1.6cm, top: 1.75cm, bottom: 2cm)
       },
+      footer: logo,
     )
     text(size: 35pt, weight: "bold")[
       #smallcaps(title)
@@ -283,28 +257,20 @@
       let subsections = query(<subsection>)
       pad(enum(..subsections.map(subsection => [#link(subsection.location(), subsection.value) <toc>])))
     } else {
-      pad(
-        enum(
-          ..sections.map(section => {
-            let section_loc = section.location()
-            let subsections = query(
-              selector(<subsection>)
-                .after(section_loc)
-                .before(selector(<section>).after(section_loc, inclusive: false)),
-            )
-            if subsections.len() != 0 {
-              [#link(section_loc, section.value) <toc> #list(
-                  ..subsections.map(subsection => [#link(
-                      subsection.location(),
-                      subsection.value,
-                    ) <toc>]),
-                )]
-            } else {
-              [#link(section.location(), section.value) <toc>]
-            }
-          }),
-        ),
-      )
+      pad(enum(..sections.map(section => {
+        let section_loc = section.location()
+        let subsections = query(selector(<subsection>)
+          .after(section_loc)
+          .before(selector(<section>).after(section_loc, inclusive: false)))
+        if subsections.len() != 0 {
+          [#link(section_loc, section.value) <toc> #list(..subsections.map(subsection => [#link(
+                subsection.location(),
+                subsection.value,
+              ) <toc>]))]
+        } else {
+          [#link(section.location(), section.value) <toc>]
+        }
+      })))
     }
   }
 )
@@ -314,10 +280,11 @@
 #let title-slide(
   body,
   text-size: 42pt,
+  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
 ) = (
   context {
     register-section(body)
-    set page(footer: ucph-logo(right), margin: (x: 2cm, top: 2.5cm, bottom: 2.5cm))
+    set page(footer: logo, margin: (x: 2cm, top: 2.5cm, bottom: 2cm))
     show heading: text.with(size: text-size, weight: "semibold")
 
     set align(left + horizon)
@@ -325,7 +292,6 @@
     [#heading(depth: 1, smallcaps(body)) #metadata(body) <section>]
 
     _divider(color: theme-color.get())
-
     pagebreak()
   }
 )
@@ -335,42 +301,16 @@
 #let focus-slide(
   text-color: white,
   text-size: 60pt,
+  logo: align(bottom + right, image("logos/ucph_1_negative.svg", width: 12%)),
   body,
+  margin: (left: 1cm, right: 1cm, top: 2cm, bottom: 2cm),
+  page-fill: none,
 ) = (
   context {
-    set page(fill: theme-color.get(), footer: ucph-logo-neg1(right), margin: (bottom: 80pt))
-
-    // // to use gradients
-    // set page(
-    //   fill: gradient.linear(rgb("901a1e"), rgb("0a5963"), angle: 45deg),
-    //   footer: ucph-logo-neg1(right),
-    //   margin: (bottom: 80pt),
-    // )
-
-    set text(
-      weight: "semibold",
-      size: text-size,
-      fill: text-color,
-    )
-
-    set align(center + horizon)
-    _resize-text(body)
-  }
-)
-
-#let focus-slide2(
-  text-color: white,
-  text-size: 60pt,
-  body,
-) = (
-  context {
-    // set page(fill: theme-color.get(), footer: ucph-logo-neg1(right), margin: (bottom: 80pt))
-
-    // // to use gradients
     set page(
-      fill: gradient.linear(rgb("901a1E"), rgb("122947"), angle: 45deg),
-      footer: ucph-logo-neg1(right),
-      margin: (bottom: 80pt),
+      fill: if page-fill == none { theme-color.get() } else { page-fill },
+      margin: margin,
+      footer: logo,
     )
 
     set text(
@@ -391,6 +331,7 @@
   back-color: white,
   outlined: false,
   body,
+  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
 ) = (
   context {
     let page-num = context counter(page).display(
@@ -400,6 +341,7 @@
 
     set page(
       fill: back-color,
+      footer: logo,
       header-ascent: if title != none {
         65%
       } else {
@@ -415,17 +357,12 @@
         ]
       ],
       margin: if title != none {
-        (x: 1.6cm, top: 2.5cm, bottom: 2.5cm)
+        (x: 1.5cm, top: 2.5cm, bottom: 2cm)
       } else {
-        (x: 1.6cm, top: 1.75cm, bottom: 2.5cm)
+        (x: 1.5cm, top: 1.75cm, bottom: 2cm)
       },
       background: place(_slide-header(title, outlined, theme-color.get())),
-      footer: ucph-logo(right),
     )
-
-    // set list(marker: text(theme-color.get(), [•]))
-
-    // set enum(numbering: (it => context text(fill: theme-color.get())[*#it.*]))
 
     set text(size: 20pt)
     set par(justify: true)
@@ -445,17 +382,15 @@
       both: true,
     )
 
-    set page(
-      header: [
-        #align(right)[
-          #text(
-            fill: theme-color.get(),
-            weight: "semibold",
-            size: 12pt,
-          )[#page-num]
-        ]
-      ],
-    )
+    set page(header: [
+      #align(right)[
+        #text(
+          fill: theme-color.get(),
+          weight: "semibold",
+          size: 12pt,
+        )[#page-num]
+      ]
+    ])
 
     set list(marker: text(theme-color.get(), [•]))
 
@@ -473,12 +408,10 @@
 #let bibliography-slide(
   bib-call,
   title: "References",
+  logo: align(right, image("logos/ucph_1_standard.svg", width: 12%)),
 ) = (
   context {
-    set page(
-      footer: ucph-logo(right),
-      margin: (top: 2cm, bottom: 2.5cm),
-    )
+    set page(footer: logo, margin: (top: 2cm, bottom: 2cm))
     set text(size: 16pt)
     set par(justify: true)
 

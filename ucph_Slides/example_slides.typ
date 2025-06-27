@@ -1,77 +1,84 @@
-#import "typslides-ucph/typslides-ucph.typ" as ts
-#import "typslides-ucph/colors.typ": *
-// #import "@preview/typslides-ucph:0.1.0" as ts
+#import "ucph-slides/ucph-slides.typ" as us
+#import "ucph-slides/colors.typ" as uc
+// #import "@preview/ucph-slides:0.1.0" as us
 
 // Project configuration
-#show: ts.ucph_slides.with(
+#show: us.ucph_slides.with(
   ratio: "16-9",
-  theme: ucph_dark.red,
+  theme: uc.ucph_dark.red,
 )
 
 // how to get the front logo back??
 // The front slide is the first slide of your presentation
-#ts.front-slide(
-  title: "Love thy neighbor?",
+#us.front-slide(
+  title: "Behold: A slidedeck",
   subtitle: [#set text(size: 22pt)
-    An empirical test of neighborhood ethnicity change and Schelling behavior],
-  authors: "Jørgen Baun Høst",
-  info: [Department of Economics],
+    A subtitle, _wow_],
+  authors: [John McClane & Kier Eagan],
+  info: [Department of something],
 )
 
 // make it so that you can opt-in/out of stuff
-#ts.blank-slide("")
+#us.blank-slide("")
 
 // change link-color
-#ts.table-of-contents()
+#us.table-of-contents()
 
-#ts.focus-slide("Hello")
-#ts.focus-slide2("Hello but with a pretty background")
+#let my_gradient = gradient.linear(uc.ucph_dark.red, uc.ucph_dark.blue, angle: 45deg)
+
+#us.focus-slide([The music experience is cancelled.])
+#us.focus-slide([... With a gradient background], page-fill: my_gradient)
+
 
 // Custom outline
-#ts.slide(title: "Overview")[
+#us.slide(title: "Overview")[
   #set text(size: 18pt)
-  - *Motivation*: Demographic transition and Schelling's model
-  - *Research Question*: Does the ethnicity of your nearest neighbor affect propensity to move?
-  - *Methods*: Nearest-neighbor research design with comprehensive administrative data
-  - *Resulus*: Schelling behavior?
-  - *Heterogeneity Analysis*: SES
+  - *Motivation*:
+  - *Research Question*:
+  - *Methods*:
+  - *Resulus*:
+  - *Heterogeneity Analysis*:
   - *Conclusion*
-
-  _Defintions_:
-  + Native households: All members are of Danish origin
-  + Non-Western households: At least 1 member is of non-Western origin
-  + Western households: At least 1 member is of Western origin (but no non-Western household members)
 ]
+
+#us.slide(title: "Overview")[
+  #us.framed([
+    Very cool, much wow:
+    $ hat(beta) = (X'X)^(-1)X'y $
+  ])
+  #us.framed(
+    [123 #footnote("Cool!")],
+    title: "123",
+    framed-color: uc.ucph_dark.petroleum,
+  )
+]
+
+
 
 // Introduction and motivation
 // logo to the left
-#ts.title-slide[
+#us.title-slide[
   Introduction
 ]
 
 
-#ts.slide(title: "Theoretical Background: Schelling's Model")[
+#us.slide(title: "Theoretical Background:")[
   #set text(size: 18pt)
-  #ts.cols(columns: (1fr, 1fr))[
-    - #cite(<schelling1971dynamic>, form: "prose") proposed that neighborhoods may "tip" when minority share reaches a threshold
-    - Even with relatively tolerant preferences toward diversity
-    - Three types of segregation:
-      1. Organized segregation (e.g., historical Jim Crow laws)
-      2. Economically induced segregation (clustering by income/education)
-      // 3. #ts.reddy[Individually motivated segregation] #sym.arrow.l #strong[Focus of this paper]
-      Schelling's key insight: Small individual preferences can lead to macro-level segregation
+  #us.cols(columns: (1fr, 1fr))[
+    - You can cite things too. Wow!! #cite(<schelling1971dynamic>, form: "prose") proposed that neighborhoods may "tip" when minority share reaches a threshold
   ][
-    123
+    #set align(center)
+    _insert image over here_
   ]
 ]
 
 // Methods
-#ts.title-slide[
+#us.title-slide[
   Methods
 ]
 
 
-#ts.slide(title: "Identification Challenge")[
+#us.slide(title: "Identification Challenge")[
   #set text(size: 18pt)
   $
     V_(i,j,t) = f(Z_(i,t), X_(j,t), xi_(j,t)) + sum_(k) g(Z_(i,t), Z_(k,t), D_(i,k)) + delta E[V_(i,j,t+1)] + epsilon_(i,j,t)
@@ -91,8 +98,8 @@
 ]
 
 
-#ts.slide(title: "Nearest neighbor research design")[
-  #set text(size: 16pt)
+#us.slide(title: "Nearest neighbor research design")[
+  #set text(size: 15pt)
   #strong[Innovative approach from #cite(<Bayer_2022_nearest_neighbor>, form: "prose"):]
 
   Compare households within the same neighborhood who receive different-type neighbors. Why does this work? Consider two households:
@@ -116,7 +123,7 @@
 
 
 
-#ts.slide(title: "Nearest neighbor research design")[
+#us.slide(title: "Nearest neighbor research design")[
   #set text(size: 16pt)
   - #strong[Treatment group]: Households with new different-type neighbors among their 3 nearest neighbors
   - #strong[Control group]: Households with new different-type neighbors "just down the road" (ranks 4-6)
@@ -129,20 +136,20 @@
   This design addresses key identification challenges by comparing households experiencing same neighborhood conditions but different micro-geography of new neighbors.
 ]
 
-#ts.title-slide[Data
+#us.title-slide[Data
 ]
 
 // Resulus
-#ts.title-slide[
+#us.title-slide[
   Results
 ]
 
 // Conclusion
-#ts.title-slide[
+#us.title-slide[
   Conclusion
 ]
 
-#ts.slide(title: "Key Findings")[
+#us.slide(title: "Key Findings")[
   #set text(size: 22pt)
   1. Native Danish households increase moving propensity by 1.6% when receiving non-Western neighbors
 
@@ -154,7 +161,7 @@
   5. Magnitude in Denmark (1.6%) more modest than in U.S. context (4-6%)
 ]
 
-#ts.slide(title: "Extensions")[
+#us.slide(title: "Extensions")[
   - Do native households respond to new Western neighbors?
   - How much are native households willing to pay in premium to live in a more homogenous neighborhood?
     - Variation?
@@ -162,7 +169,7 @@
 ]
 
 
-#ts.focus-slide[
+#us.focus-slide[
   Thank you for your attention!
 
   #v(1em)
@@ -172,11 +179,11 @@
 // Bibliography
 #let bib = bibliography("bibliography.bib", style: "harvard-cite-them-right")
 // logo to the right
-#ts.bibliography-slide(bib)
+#us.bibliography-slide(bib)
 
 #pagebreak()
 // Appendix slides if needed
-#ts.title-slide[
+#us.title-slide[
   Appendix
 ]
 
