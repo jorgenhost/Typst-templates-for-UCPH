@@ -1,17 +1,3 @@
-#let _theme-colors = (
-  bluey: rgb("3059AB"),
-  reddy: rgb("BF3D3D"),
-  greeny: rgb("28842F"),
-  yelly: rgb("C4853D"),
-  purply: rgb("862A70"),
-  dusky: rgb("1F4289"),
-  ucph: rgb("#901a1e"),
-  darky: black,
-)
-
-#let _theme-colors-text = (
-  ucph: rgb("#666666"),
-)
 //************************************************************************\\
 
 #let ucph-logo_wide = {
@@ -75,35 +61,35 @@
 
 //************************************************************************\\
 
-#let _make-frontpage(
-  title,
-  subtitle,
-  authors,
-  info,
-  theme-color,
-) = {
-  set align(left + horizon)
-  set page(footer: ucph-logo_wide, margin: (bottom: 100pt))
-  text(40pt, weight: "bold")[#smallcaps(title)]
+// #let _make-frontpage(
+//   title,
+//   subtitle,
+//   authors,
+//   info,
+//   theme-color,
+// ) = {
+//   set align(left + horizon)
+//   set page(footer: ucph-logo_wide, margin: (bottom: 100pt))
+//   text(40pt, weight: "bold")[#smallcaps(title)]
 
-  v(-.95cm)
+//   v(-.95cm)
 
-  if subtitle != none {
-    set text(24pt)
-    v(.1cm)
-    subtitle
-  }
+//   if subtitle != none {
+//     set text(24pt)
+//     v(.1cm)
+//     subtitle
+//   }
 
-  let subtext = []
+//   let subtext = []
 
-  if authors != none {
-    subtext += text(22pt, weight: "regular")[#authors]
-  }
+//   if authors != none {
+//     subtext += text(22pt, weight: "regular")[#authors]
+//   }
 
-  if info != none {
-    subtext += text(20pt, fill: black, weight: "regular")[#v(-.15cm) #info]
-  }
+//   if info != none {
+//     subtext += text(20pt, fill: black, weight: "regular")[#v(-.15cm) #info]
+//   }
 
-  _divider(color: black)
-  [#subtext]
-}
+//   _divider(color: black)
+//   [#subtext]
+// }

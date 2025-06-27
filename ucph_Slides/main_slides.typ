@@ -1,14 +1,14 @@
 #import "typslides-ucph/typslides-ucph.typ" as ts
-
-// #import "@preview/typslides-ucph:0.1.0" as us
+#import "typslides-ucph/colors.typ": *
+// #import "@preview/typslides-ucph:0.1.0" as ts
 
 // Project configuration
 #show: ts.ucph_slides.with(
   ratio: "16-9",
-  theme: "ucph",
+  theme: ucph_dark.red,
 )
 
-
+// how to get the front logo back??
 // The front slide is the first slide of your presentation
 #ts.front-slide(
   title: "Love thy neighbor?",
@@ -25,6 +25,7 @@
 #ts.table-of-contents()
 
 #ts.focus-slide("Hello")
+#ts.focus-slide2("Hello but with a pretty background")
 
 // Custom outline
 #ts.slide(title: "Overview")[
@@ -52,12 +53,12 @@
 #ts.slide(title: "Theoretical Background: Schelling's Model")[
   #set text(size: 18pt)
   #ts.cols(columns: (1fr, 1fr))[
-    - @schelling1971dynamic proposed that neighborhoods may "tip" when minority share reaches a threshold
+    - #cite(<schelling1971dynamic>, form: "prose") proposed that neighborhoods may "tip" when minority share reaches a threshold
     - Even with relatively tolerant preferences toward diversity
     - Three types of segregation:
       1. Organized segregation (e.g., historical Jim Crow laws)
       2. Economically induced segregation (clustering by income/education)
-      3. #ts.reddy[Individually motivated segregation] #sym.arrow.l #strong[Focus of this paper]
+      // 3. #ts.reddy[Individually motivated segregation] #sym.arrow.l #strong[Focus of this paper]
       Schelling's key insight: Small individual preferences can lead to macro-level segregation
   ][
     123
