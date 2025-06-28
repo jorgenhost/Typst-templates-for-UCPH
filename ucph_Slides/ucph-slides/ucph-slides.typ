@@ -6,16 +6,24 @@
 #let sections = state("sections", ())
 
 #let ucph-base-color = ucph_dark.red
+#let logo-wide-en = align(bottom + center, image("logos/ucph_1_wide.svg", width: 100%))
+#let logo-std-en = image("logos/ucph_1_standard.svg", width: 12%)
+#let logo-neg-en = image("logos/ucph_1_negative.svg", width: 12%)
+
+#let logo-wide-da = align(bottom + center, image("logos/ucph_1_wide_dk.svg", width: 100%))
+#let logo-std-da = image("logos/ucph_1_standard_dk.svg", width: 12%)
+#let logo-neg-da = image("logos/ucph_1_negative_dk.svg", width: 12%)
+
 
 #let ucph_slides(
   ratio: "16-9",
+  language: "en",
   theme: ucph-base-color,
   font: "Libertinus Serif",
   link-style: "color",
   body,
 ) = {
   theme-color.update(theme)
-
   set text(font: font)
   set page(paper: "presentation-" + ratio, fill: white)
 
@@ -230,7 +238,7 @@
 #let table-of-contents(
   title: "Contents",
   text-size: 20pt,
-  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
+  logo: align(right + bottom, pad(image("logos/ucph_1_standard.svg", width: 12%), bottom: 10pt)),
 ) = (
   context {
     set page(
@@ -280,7 +288,7 @@
 #let title-slide(
   body,
   text-size: 42pt,
-  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
+  logo: align(right + bottom, pad(image("logos/ucph_1_standard.svg", width: 12%), bottom: 10pt)),
 ) = (
   context {
     register-section(body)
@@ -301,7 +309,7 @@
 #let focus-slide(
   text-color: white,
   text-size: 60pt,
-  logo: align(bottom + right, image("logos/ucph_1_negative.svg", width: 12%)),
+  logo: align(bottom + right, pad(image("logos/ucph_1_negative.svg", width: 12%), bottom: 10pt)),
   body,
   margin: (left: 1cm, right: 1cm, top: 2cm, bottom: 2cm),
   page-fill: none,
@@ -331,7 +339,7 @@
   back-color: white,
   outlined: false,
   body,
-  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
+  logo: align(right + bottom, pad(image("logos/ucph_1_standard_dk.svg", width: 11%), bottom: 10pt)),
 ) = (
   context {
     let page-num = context counter(page).display(
