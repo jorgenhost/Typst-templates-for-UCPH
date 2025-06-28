@@ -5,17 +5,18 @@
 // Project configuration
 #show: us.ucph_slides.with(
   ratio: "16-9",
-  theme: uc.ucph_dark.red,
+  base-color: uc.ucph_dark.red,
+  language: "da",
 )
 
 // how to get the front logo back??
 // The front slide is the first slide of your presentation
 #us.front-slide(
-  title: "Behold: A slidedeck",
+  title: "En præsentation",
   subtitle: [#set text(size: 22pt)
-    A subtitle, _wow_],
+    En substitel, _wow_],
   authors: [John McClane & Kier Eagan],
-  info: [Department of something],
+  info: [Institut for Pseudovidenskab],
 )
 
 // Dark colors

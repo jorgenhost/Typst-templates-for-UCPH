@@ -1,5 +1,5 @@
 [package]
-name = "typslides-ucph"
+name = "ucph-slides"
 version = "0.1.0"
 entrypoint = "lib.typ"
 compiler = "0.13.0"

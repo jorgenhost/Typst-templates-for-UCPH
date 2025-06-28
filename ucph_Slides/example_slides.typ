@@ -5,7 +5,7 @@
 // Project configuration
 #show: us.ucph_slides.with(
   ratio: "16-9",
-  theme: uc.ucph_dark.red,
+  base-color: uc.ucph_dark.red,
 )
 
 // how to get the front logo back??
@@ -67,7 +67,7 @@
   - *Motivation*:
   - *Research Question*:
   - *Methods*:
-  - *Resulus*:
+  - *Results*:
   - *Heterogeneity Analysis*:
   - *Conclusion*
 ]
@@ -80,7 +80,6 @@
   #us.framed(
     [123 #footnote("Cool!")],
     title: "123",
-    framed-color: uc.ucph_dark.petroleum,
   )
 ]
 
@@ -111,9 +110,7 @@
 
 #us.slide(title: "Identification Challenge")[
   #set text(size: 18pt)
-  $
-    V_(i,j,t) = f(Z_(i,t), X_(j,t), xi_(j,t)) + sum_(k) g(Z_(i,t), Z_(k,t), D_(i,k)) + delta E[V_(i,j,t+1)] + epsilon_(i,j,t)
-  $
+  $ V_(i,j,t) = f(Z_(i,t), X_(j,t), xi_(j,t)) + sum_(k) g(Z_(i,t), Z_(k,t), D_(i,k)) + delta E[V_(i,j,t+1)] + epsilon_(i,j,t) $
   Where:
   - $f(·)$: Utility from neighborhood amenities
   - $g(·)$: Utility from characteristics of each neighbor $k$ at distance $D_(i,k)$
@@ -126,7 +123,7 @@
   - Unobserved neighborhood amenities
   - Dynamic preferences (expectations of future changes)
   - Selection effecus (who moves where is not random)
-]
+]theme-color-comp.get()
 
 
 #us.slide(title: "Nearest neighbor research design")[
