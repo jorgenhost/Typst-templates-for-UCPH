@@ -3,24 +3,20 @@
 
 // state or func?
 #let theme-color = state("theme-color", none)
-#let theme-color-comp = state("theme-color-comp", none)
 #let language-state = state("language", "en")
 #let sections = state("sections", ())
 
 #let ucph-base-color = colors.ucph_dark.red
-#let ucph-base-color-comp = colors.ucph_dark.petroleum
 
 #let ucph_slides(
   ratio: "16-9",
   language: "en",
   base-color: ucph-base-color,
-  comp-color: ucph-base-color-comp,
   font: "Libertinus Serif",
   link-style: "color",
   body,
 ) = {
   theme-color.update(base-color)
-  theme-color-comp.update(comp-color)
   language-state.update(language)
   set text(font: font)
   set page(paper: "presentation-" + ratio, fill: white)
@@ -73,27 +69,26 @@
 #let framed(
   title: none,
   back-color: rgb("FBF7EE"),
-  framed-color: none,
+  framed-color: colors.ucph_dark.petroleum,
+  block-width: 100%,
   content,
 ) = (
   context {
     let w = auto
-
     set block(
       inset: (x: .6cm, y: .6cm),
       breakable: false,
       above: .1cm,
       below: .1cm,
     )
-
     if title != none {
-      set block(width: 100%)
       stack(
         block(
-          fill: if framed-color == none { theme-color-comp.get() } else { framed-color },
+          fill: if framed-color == none { theme-color.get() } else { framed-color },
           inset: (x: .6cm, y: .55cm),
           radius: (top: .2cm, bottom: 0cm),
           stroke: 2pt,
+          width: block-width,
         )[
           #text(weight: "semibold", fill: white)[#title]
         ],
@@ -105,6 +100,7 @@
               white
             }
           },
+          width: block-width, // Set width directly on this block
           radius: (top: 0cm, bottom: .2cm),
           stroke: 2pt,
           content,
@@ -112,7 +108,7 @@
       )
     } else {
       stack(block(
-        width: auto,
+        width: block-width,
         fill: if back-color != none {
           back-color
         } else {
@@ -125,7 +121,6 @@
     }
   }
 )
-
 //***************************************************\\
 
 // Source: https://github.com/polylux-typ/polylux/blob/main/src/toolbox/toolbox-impl.typ
@@ -354,7 +349,6 @@
 
     let current-lang = language-state.get()
     let logos = utils.get-logos(current-lang)
-
     set page(
       fill: back-color,
       footer: logos.standard,

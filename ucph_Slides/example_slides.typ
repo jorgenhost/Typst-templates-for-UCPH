@@ -18,38 +18,10 @@
   info: [Department of something],
 )
 
-// Dark colors
-#let gradient_darks = gradient.linear(
-  uc.ucph_dark.red,
-  uc.ucph_dark.blue,
-  uc.ucph_dark.petroleum,
-  uc.ucph_dark.green,
-  uc.ucph_dark.green,
-  uc.ucph_dark.gray,
-)
-
-#let gradient_medium = gradient.linear(
-  uc.ucph_medium.red,
-  uc.ucph_medium.blue,
-  uc.ucph_medium.petroleum,
-  uc.ucph_medium.green,
-  uc.ucph_medium.green,
-  uc.ucph_medium.gray,
-)
-
-#let gradient_light = gradient.linear(
-  uc.ucph_light.red,
-  uc.ucph_light.blue,
-  uc.ucph_light.petroleum,
-  uc.ucph_light.green,
-  uc.ucph_light.green,
-  uc.ucph_light.yellow,
-)
-
 #us.slide(title: "Colors of UCPH")[
-  #us.framed(title: "Darks (Standard for UCPH)", framed-color: black, back-color: gradient_darks)[]
-  #us.framed(title: "Medium", framed-color: gray, back-color: gradient_medium)[]
-  #us.framed(title: text(fill: black, "Light"), framed-color: white, back-color: gradient_light)[]
+  #us.framed(title: "Darks (Standard for UCPH)", framed-color: black, back-color: uc.gradient_darks)[]
+  #us.framed(title: "Medium", framed-color: gray, back-color: uc.gradient_medium)[]
+  #us.framed(title: text(fill: black, "Light"), framed-color: white, back-color: uc.gradient_light)[]
 ]
 
 // Table of contents that registers "uc.title-slides()" in your .typ-file
@@ -77,9 +49,17 @@
     Very cool, much wow:
     $ hat(beta) = (X'X)^(-1)X'y $
   ])
+  #us.framed([123 #footnote("Cool!")], title: [The Fixed Effect estimator])
+]
+
+#us.slide(title: "Linear panel data model")[
   #us.framed(
-    [123 #footnote("Cool!")],
-    title: "123",
+    [
+      $
+        y_(i t) = c_i + bold(x)_(i t) bold(beta)_(i t) + u_(i t)
+      $
+    ],
+    title: "Model",
   )
 ]
 
@@ -110,7 +90,9 @@
 
 #us.slide(title: "Identification Challenge")[
   #set text(size: 18pt)
-  $ V_(i,j,t) = f(Z_(i,t), X_(j,t), xi_(j,t)) + sum_(k) g(Z_(i,t), Z_(k,t), D_(i,k)) + delta E[V_(i,j,t+1)] + epsilon_(i,j,t) $
+  $
+    V_(i,j,t) = f(Z_(i,t), X_(j,t), xi_(j,t)) + sum_(k) g(Z_(i,t), Z_(k,t), D_(i,k)) + delta E[V_(i,j,t+1)] + epsilon_(i,j,t)
+  $
   Where:
   - $f(·)$: Utility from neighborhood amenities
   - $g(·)$: Utility from characteristics of each neighbor $k$ at distance $D_(i,k)$
@@ -123,7 +105,7 @@
   - Unobserved neighborhood amenities
   - Dynamic preferences (expectations of future changes)
   - Selection effecus (who moves where is not random)
-]theme-color-comp.get()
+]
 
 
 #us.slide(title: "Nearest neighbor research design")[
@@ -167,7 +149,7 @@
 #us.title-slide[Data
 ]
 
-// Resulus
+// Results
 #us.title-slide[
   Results
 ]
@@ -202,6 +184,12 @@
 
   #v(1em)
   Questions?
+]
+
+#us.slide(title: "123")[
+  $
+    y = a x + b
+  $
 ]
 
 // Bibliography
