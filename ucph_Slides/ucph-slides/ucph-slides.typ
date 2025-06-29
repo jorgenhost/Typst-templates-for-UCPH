@@ -1,21 +1,23 @@
-#import "./utils.typ": *
-#import "./colors.typ": *
+#import "./utils.typ" as utils
+#import "./colors.typ" as colors
 
 // state or func?
 #let theme-color = state("theme-color", none)
+#let language-state = state("language", "en")
 #let sections = state("sections", ())
 
-#let ucph-base-color = ucph_dark.red
+#let ucph-base-color = colors.ucph_dark.red
 
 #let ucph_slides(
   ratio: "16-9",
-  theme: ucph-base-color,
+  language: "en",
+  base-color: ucph-base-color,
   font: "Libertinus Serif",
   link-style: "color",
   body,
 ) = {
-  theme-color.update(theme)
-
+  theme-color.update(base-color)
+  language-state.update(language)
   set text(font: font)
   set page(paper: "presentation-" + ratio, fill: white)
 
@@ -28,6 +30,7 @@
     show regex("\d{4}"): set text(blue)
     it
   }
+  let current_lang = language
 
   show link: it => (
     context {
@@ -66,27 +69,26 @@
 #let framed(
   title: none,
   back-color: rgb("FBF7EE"),
-  framed-color: none,
+  framed-color: colors.ucph_dark.petroleum,
+  block-width: 100%,
   content,
 ) = (
   context {
     let w = auto
-
     set block(
       inset: (x: .6cm, y: .6cm),
       breakable: false,
       above: .1cm,
       below: .1cm,
     )
-
     if title != none {
-      set block(width: 100%)
       stack(
         block(
           fill: if framed-color == none { theme-color.get() } else { framed-color },
           inset: (x: .6cm, y: .55cm),
           radius: (top: .2cm, bottom: 0cm),
           stroke: 2pt,
+          width: block-width,
         )[
           #text(weight: "semibold", fill: white)[#title]
         ],
@@ -98,6 +100,7 @@
               white
             }
           },
+          width: block-width, // Set width directly on this block
           radius: (top: 0cm, bottom: .2cm),
           stroke: 2pt,
           content,
@@ -105,7 +108,7 @@
       )
     } else {
       stack(block(
-        width: auto,
+        width: block-width,
         fill: if back-color != none {
           back-color
         } else {
@@ -118,7 +121,6 @@
     }
   }
 )
-
 //***************************************************\\
 
 // Source: https://github.com/polylux-typ/polylux/blob/main/src/toolbox/toolbox-impl.typ
@@ -189,9 +191,12 @@
   line-color: black,
 ) = (
   context {
+    let current-lang = language-state.get()
+    let logos = utils.get-logos(current-lang)
     set align(align_arg)
+
     set page(
-      footer: [#logo #v(0.5cm)],
+      footer: [#logos.wide #v(0.5cm)],
       margin: margin,
     )
     text(title-size, weight: "bold")[#smallcaps(title)]
@@ -230,21 +235,23 @@
 #let table-of-contents(
   title: "Contents",
   text-size: 20pt,
-  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
+  logo: align(right + bottom, pad(image("logos/ucph_1_standard.svg", width: 12%), bottom: 10pt)),
 ) = (
   context {
+    let current-lang = language-state.get()
+    let logos = utils.get-logos(current-lang)
     set page(
       margin: if title != none {
-        (x: 1.6cm, top: 2.5cm, bottom: 2cm)
+        (x: 1.6cm, top: 2.5cm, bottom: 2.5cm)
       } else {
-        (x: 1.6cm, top: 1.75cm, bottom: 2cm)
+        (x: 1.6cm, top: 1.75cm, bottom: 2.5cm)
       },
-      footer: logo,
+      footer: logos.standard,
     )
     text(size: 35pt, weight: "bold")[
       #smallcaps(title)
       #v(-.9cm)
-      #_divider(color: theme-color.get())
+      #utils._divider(color: theme-color.get())
     ]
 
     set text(size: text-size)
@@ -280,18 +287,20 @@
 #let title-slide(
   body,
   text-size: 42pt,
-  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
+  logo: align(right + bottom, pad(image("logos/ucph_1_standard.svg", width: 12%), bottom: 10pt)),
 ) = (
   context {
     register-section(body)
-    set page(footer: logo, margin: (x: 2cm, top: 2.5cm, bottom: 2cm))
+    let current-lang = language-state.get()
+    let logos = utils.get-logos(current-lang)
+    set page(footer: logos.standard, margin: (x: 2cm, top: 2.5cm, bottom: 2.5cm))
     show heading: text.with(size: text-size, weight: "semibold")
 
     set align(left + horizon)
 
     [#heading(depth: 1, smallcaps(body)) #metadata(body) <section>]
 
-    _divider(color: theme-color.get())
+    utils._divider(color: theme-color.get())
     pagebreak()
   }
 )
@@ -301,7 +310,7 @@
 #let focus-slide(
   text-color: white,
   text-size: 60pt,
-  logo: align(bottom + right, image("logos/ucph_1_negative.svg", width: 12%)),
+  logo: align(bottom + right, pad(image("logos/ucph_1_negative.svg", width: 12%), bottom: 10pt)),
   body,
   margin: (left: 1cm, right: 1cm, top: 2cm, bottom: 2cm),
   page-fill: none,
@@ -320,7 +329,7 @@
     )
 
     set align(center + horizon)
-    _resize-text(body)
+    utils._resize-text(body)
   }
 )
 
@@ -331,7 +340,6 @@
   back-color: white,
   outlined: false,
   body,
-  logo: align(right + bottom, image("logos/ucph_1_standard.svg", width: 12%)),
 ) = (
   context {
     let page-num = context counter(page).display(
@@ -339,9 +347,11 @@
       both: true,
     )
 
+    let current-lang = language-state.get()
+    let logos = utils.get-logos(current-lang)
     set page(
       fill: back-color,
-      footer: logo,
+      footer: logos.standard,
       header-ascent: if title != none {
         65%
       } else {
@@ -357,11 +367,11 @@
         ]
       ],
       margin: if title != none {
-        (x: 1.5cm, top: 2.5cm, bottom: 2cm)
+        (x: 1.5cm, top: 2.2cm, bottom: 2.2cm)
       } else {
-        (x: 1.5cm, top: 1.75cm, bottom: 2cm)
+        (x: 1.5cm, top: 1.75cm, bottom: 2.2cm)
       },
-      background: place(_slide-header(title, outlined, theme-color.get())),
+      background: place(utils._slide-header(title, outlined, theme-color.get())),
     )
 
     set text(size: 20pt)
@@ -411,11 +421,15 @@
   logo: align(right, image("logos/ucph_1_standard.svg", width: 12%)),
 ) = (
   context {
-    set page(footer: logo, margin: (top: 2cm, bottom: 2cm))
+    let current-lang = language-state.get()
+    let logos = utils.get-logos(current-lang)
+    set page(footer: logos.standard, margin: (top: 2cm, bottom: 2cm))
     set text(size: 16pt)
     set par(justify: true)
 
-    set bibliography(title: text(size: 25pt)[#smallcaps(title) #v(-.85cm) #_divider(color: theme-color.get()) #v(.5cm)])
+    set bibliography(title: text(size: 25pt)[#smallcaps(title) #v(-.85cm) #utils._divider(color: theme-color.get()) #v(
+        .5cm,
+      )])
 
     bib-call
   }

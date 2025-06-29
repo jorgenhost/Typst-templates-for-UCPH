@@ -6,22 +6,51 @@
 #show: us.ucph_slides.with(
   ratio: "16-9",
   base-color: uc.ucph_dark.red,
+  language: "da",
 )
 
 // how to get the front logo back??
 // The front slide is the first slide of your presentation
 #us.front-slide(
-  title: "Behold: A slidedeck",
+  title: "En præsentation",
   subtitle: [#set text(size: 22pt)
-    A subtitle, _wow_],
+    En substitel, _wow_],
   authors: [John McClane & Kier Eagan],
-  info: [Department of something],
+  info: [Institut for Pseudovidenskab],
+)
+
+// Dark colors
+#let gradient_darks = gradient.linear(
+  uc.ucph_dark.red,
+  uc.ucph_dark.blue,
+  uc.ucph_dark.petroleum,
+  uc.ucph_dark.green,
+  uc.ucph_dark.green,
+  uc.ucph_dark.gray,
+)
+
+#let gradient_medium = gradient.linear(
+  uc.ucph_medium.red,
+  uc.ucph_medium.blue,
+  uc.ucph_medium.petroleum,
+  uc.ucph_medium.green,
+  uc.ucph_medium.green,
+  uc.ucph_medium.gray,
+)
+
+#let gradient_light = gradient.linear(
+  uc.ucph_light.red,
+  uc.ucph_light.blue,
+  uc.ucph_light.petroleum,
+  uc.ucph_light.green,
+  uc.ucph_light.green,
+  uc.ucph_light.yellow,
 )
 
 #us.slide(title: "Colors of UCPH")[
-  #us.framed(title: "Darks (Standard for UCPH)", framed-color: black, back-color: uc.gradient_darks)[]
-  #us.framed(title: "Medium", framed-color: gray, back-color: uc.gradient_medium)[]
-  #us.framed(title: text(fill: black, "Light"), framed-color: white, back-color: uc.gradient_light)[]
+  #us.framed(title: "Darks (Standard for UCPH)", framed-color: black, back-color: gradient_darks)[]
+  #us.framed(title: "Medium", framed-color: gray, back-color: gradient_medium)[]
+  #us.framed(title: text(fill: black, "Light"), framed-color: white, back-color: gradient_light)[]
 ]
 
 // Table of contents that registers "uc.title-slides()" in your .typ-file
@@ -39,7 +68,7 @@
   - *Motivation*:
   - *Research Question*:
   - *Methods*:
-  - *Results*:
+  - *Resulus*:
   - *Heterogeneity Analysis*:
   - *Conclusion*
 ]
@@ -49,17 +78,10 @@
     Very cool, much wow:
     $ hat(beta) = (X'X)^(-1)X'y $
   ])
-  #us.framed([123 #footnote("Cool!")], title: [The Fixed Effect estimator])
-]
-
-#us.slide(title: "Linear panel data model")[
   #us.framed(
-    [
-      $
-        y_(i t) = c_i + bold(x)_(i t) bold(beta)_(i t) + u_(i t)
-      $
-    ],
-    title: "Model",
+    [123 #footnote("Cool!")],
+    title: "123",
+    framed-color: uc.ucph_dark.petroleum,
   )
 ]
 
@@ -149,7 +171,7 @@
 #us.title-slide[Data
 ]
 
-// Results
+// Resulus
 #us.title-slide[
   Results
 ]
@@ -184,12 +206,6 @@
 
   #v(1em)
   Questions?
-]
-
-#us.slide(title: "123")[
-  $
-    y = a x + b
-  $
 ]
 
 // Bibliography
