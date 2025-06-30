@@ -34,12 +34,12 @@ wqewqe
   #set align(center)
   #uc.framed(title: "Wow")[
     $
-      y_(i t) =
+      y_(i t) = c_i + bold(x_(i t) beta_(i t))+epsilon_(i t )
     $
   ]
 ][
   #set align(center)
-  _write something over here_ #cite(<Ananat_2011>, form: "prose")#footnote("a footnote")
+  _write something over here_ #cite(<schelling1971dynamic>, form: "prose") #footnote("a footnote")
 ]
 
 

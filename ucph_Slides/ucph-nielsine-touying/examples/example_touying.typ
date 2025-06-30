@@ -39,7 +39,7 @@ wqewqe
   ]
 ][
   #set align(center)
-  _write something over here_ #cite(<Ananat_2011>, form: "prose")#footnote("a footnote")
+  _write something over here_ #cite(<schelling1971dynamic>, form: "prose")#footnote("a footnote")
 ]
 
 
