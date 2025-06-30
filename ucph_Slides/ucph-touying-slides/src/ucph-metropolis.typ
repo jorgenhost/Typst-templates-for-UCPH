@@ -194,27 +194,6 @@
   touying-slide(self: self, config: config, std.align(align, body))
 })
 
-/// Bibliography.
-#let bibliography-slide(
-  config: (:),
-  title: "References",
-  body,
-) = (
-  context {
-    let current-lang = language-state.get()
-    let logos = utils.get-logos(current-lang)
-    set page(footer: logos.standard, margin: (top: 2cm, bottom: 2cm))
-    set text(size: 16pt)
-    set par(justify: true)
-
-    set bibliography(title: text(size: 25pt)[#smallcaps(title) #v(-.85cm) #utils._divider(color: theme-color.get()) #v(
-        .5cm,
-      )])
-
-    bib-call
-  }
-)
-
 /// Touying metropolis theme.
 ///
 /// Example:
@@ -273,7 +252,15 @@
   body,
 ) = {
   set text(size: 20pt)
+  show ref: it => {
+    show regex("\d{4}"): set text(blue)
+    it
+  }
 
+  show cite: it => {
+    show regex("\d{4}"): set text(blue)
+    it
+  }
   show: touying-slides.with(
     config-page(paper: "presentation-" + aspect-ratio, header-ascent: 30%, footer-descent: 30%, margin: (
       top: 3em,
@@ -308,7 +295,7 @@
   body
 }
 
-// Helper function to get current section number
+/// Helper function to get current section number
 #let get-current-section() = {
   context {
     let current-page = here().page()
@@ -330,7 +317,7 @@
   }
 }
 
-// Add this helper function to generate section links
+/// Helper function to generate section links
 #let section-links(self) = {
   context {
     let sections = query(heading.where(level: 1))

@@ -1,4 +1,4 @@
-#import "pdfpc.typ"
+// #import "pdfpc.typ"
 
 #let _typst-builtin-numbering = numbering
 
