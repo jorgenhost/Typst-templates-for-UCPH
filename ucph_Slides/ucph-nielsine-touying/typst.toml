@@ -1,11 +1,11 @@
 [package]
-name = "ucph-touying-slides"
+name = "ucph-nielsine-touying"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["Jørgen Baun Høst <https://github.com/jorgenhost>"]
 license = "MIT"
-description = "Touying theme in the style of University of Copenhagen."
-repository = "https://github.com/jorgenhost/Typst-templates-for-UCPH/tree/main/ucph_Slides/ucph-touying-slides"
+description = "Slide template built on Touying for the University of Copenhagen."
+repository = "https://github.com/jorgenhost/Typst-templates-for-UCPH/tree/main/ucph_Slides/ucph-nielsine-touying"
 keywords = ["presentation", "pre", "slide", "slides", "lecture", "touying", "beamer", "ucph", "copenhagen", "university of copenhagen"]
 categories = ["presentation"]
 exclude = ["examples"]
@@ -13,5 +13,5 @@ compiler = "0.13.1"
 
 [template]
 path = "template"
-entrypoint = "template.typ"
-thumbnail = ""
+entrypoint = "main.typ"
+thumbnail = "assets/thumbnail.png"

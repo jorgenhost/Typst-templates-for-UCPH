@@ -1,8 +1,9 @@
 // This theme is inspired by https://github.com/matze/mtheme
 // The origin code was written by https://github.com/Enivex
 
-#import "@preview/touying:0.6.1": *
+#import "@preview/touying:0.6.1" as ty
 #import "colors.typ" as colors
+#import "utils.typ" as ucph_utils
 
 /// Default slide function for the presentation.
 ///
@@ -37,38 +38,38 @@
   setting: body => body,
   composer: auto,
   ..bodies,
-) = touying-slide-wrapper(self => {
+) = ty.touying-slide-wrapper(self => {
   if align != auto {
     self.store.align = align
   }
   let header(self) = {
     set std.align(top)
-    show: components.cell.with(fill: self.colors.secondary, inset: 1em)
+    show: ty.components.cell.with(fill: self.colors.secondary, inset: 1em)
     set std.align(horizon)
     set text(fill: self.colors.neutral-lightest, weight: "medium", size: 1.2em)
-    components.left-and-right(
+    ty.components.left-and-right(
       {
         if title != auto {
-          utils.fit-to-width(grow: false, 100%, title)
+          ty.utils.fit-to-width(grow: false, 100%, title)
         } else {
-          utils.call-or-display(self, self.store.header)
+          ty.utils.call-or-display(self, self.store.header)
         }
       },
-      utils.call-or-display(self, self.store.header-right),
+      ty.utils.call-or-display(self, self.store.header-right),
     )
   }
   let footer(self) = {
     set std.align(bottom)
     set text(size: 14pt)
-    pad(.5em, components.left-and-right(
-      text(fill: self.colors.neutral-darkest.lighten(40%), utils.call-or-display(self, self.store.footer)),
-      text(fill: self.colors.neutral-darkest, utils.call-or-display(self, self.store.footer-right)),
+    pad(.5em, ty.components.left-and-right(
+      text(fill: self.colors.neutral-darkest.lighten(40%), ty.utils.call-or-display(self, self.store.footer)),
+      text(fill: self.colors.neutral-darkest, ty.utils.call-or-display(self, self.store.footer-right)),
     ))
     if self.store.footer-progress {
-      place(bottom, components.progress-bar(height: 2pt, self.colors.primary, self.colors.primary-light))
+      place(bottom, ty.components.progress-bar(height: 2pt, self.colors.primary, self.colors.primary-light))
     }
   }
-  let self = utils.merge-dicts(self, config-page(
+  let self = ty.utils.merge-dicts(self, ty.config-page(
     fill: self.colors.neutral-lightest,
     header: header,
     footer: footer,
@@ -79,7 +80,7 @@
     show: setting
     body
   }
-  touying-slide(self: self, config: config, repeat: repeat, setting: new-setting, composer: composer, ..bodies)
+  ty.touying-slide(self: self, config: config, repeat: repeat, setting: new-setting, composer: composer, ..bodies)
 })
 
 
@@ -105,8 +106,8 @@
   config: (:),
   extra: none,
   ..args,
-) = touying-slide-wrapper(self => {
-  self = utils.merge-dicts(self, config, config-common(freeze-slide-counter: true), config-page(
+) = ty.touying-slide-wrapper(self => {
+  self = ty.utils.merge-dicts(self, config, ty.config-common(freeze-slide-counter: true), ty.config-page(
     fill: self.colors.neutral-lightest,
   ))
   let info = self.info + args.named()
@@ -114,7 +115,7 @@
     set text(fill: self.colors.neutral-darkest)
     set std.align(horizon)
     block(width: 100%, inset: 2em, {
-      components.left-and-right(
+      ty.components.left-and-right(
         {
           text(size: 1.3em, text(weight: "medium", info.title))
           if info.subtitle != none {
@@ -122,7 +123,7 @@
             text(size: 0.9em, info.subtitle)
           }
         },
-        text(2em, utils.call-or-display(self, info.logo)),
+        text(2em, ty.utils.call-or-display(self, info.logo)),
       )
       line(length: 100%, stroke: .05em + self.colors.primary)
       set text(size: .8em)
@@ -130,7 +131,7 @@
         block(spacing: 1em, info.author)
       }
       if info.date != none {
-        block(spacing: 1em, utils.display-info-date(self))
+        block(spacing: 1em, ty.utils.display-info-date(self))
       }
       set text(size: .8em)
       if info.institution != none {
@@ -141,13 +142,13 @@
       }
     })
   }
-  touying-slide(self: self, body)
+  ty.touying-slide(self: self, body)
 })
 
 
-/// New section slide for the presentation. You can update it by updating the `new-section-slide-fn` argument for `config-common` function.
+/// New section slide for the presentation. You can update it by updating the `new-section-slide-fn` argument for `ty.config-common` function.
 ///
-/// Example: `config-common(new-section-slide-fn: new-section-slide.with(numbered: false))`
+/// Example: `ty.config-common(new-section-slide-fn: new-section-slide.with(numbered: false))`
 ///
 /// - config (dictionary): The configuration of the slide. You can use `config-xxx` to set the configuration of the slide. For several configurations, you can use `utils.merge-dicts` to merge them.
 ///
@@ -156,7 +157,7 @@
 /// - numbered (boolean): Indicates whether the heading is numbered.
 ///
 /// - body (auto): The body of the section. It will be passed by touying automatically.
-#let new-section-slide(config: (:), level: 1, numbered: true, body) = touying-slide-wrapper(self => {
+#let new-section-slide(config: (:), level: 1, numbered: true, body) = ty.touying-slide-wrapper(self => {
   let slide-body = {
     set std.align(horizon)
     show: pad.with(20%)
@@ -164,8 +165,12 @@
     stack(
       dir: ttb,
       spacing: 1em,
-      text(self.colors.neutral-darkest, utils.display-current-heading(level: level, numbered: numbered, style: auto)),
-      block(height: 2pt, width: 100%, spacing: 0pt, components.progress-bar(
+      text(self.colors.neutral-darkest, ty.utils.display-current-heading(
+        level: level,
+        numbered: numbered,
+        style: auto,
+      )),
+      block(height: 2pt, width: 100%, spacing: 0pt, ty.components.progress-bar(
         height: 2pt,
         self.colors.primary,
         self.colors.primary-light,
@@ -173,8 +178,8 @@
     )
     text(self.colors.neutral-dark, body)
   }
-  self = utils.merge-dicts(self, config-page(fill: self.colors.neutral-lightest))
-  touying-slide(self: self, config: config, slide-body)
+  self = ty.utils.merge-dicts(self, ty.config-page(fill: self.colors.neutral-lightest))
+  ty.touying-slide(self: self, config: config, slide-body)
 })
 
 
@@ -185,13 +190,13 @@
 /// - config (dictionary): The configuration of the slide. You can use `config-xxx` to set the configuration of the slide. For several configurations, you can use `utils.merge-dicts` to merge them.
 ///
 /// - align (alignment): The alignment of the content. Default is `horizon + center`.
-#let focus-slide(config: (:), align: horizon + center, body) = touying-slide-wrapper(self => {
-  self = utils.merge-dicts(self, config-common(freeze-slide-counter: true), config-page(
+#let focus-slide(config: (:), align: horizon + center, body) = ty.touying-slide-wrapper(self => {
+  self = ty.utils.merge-dicts(self, ty.config-common(freeze-slide-counter: true), ty.config-page(
     fill: self.colors.neutral-dark,
     margin: 2em,
   ))
   set text(fill: self.colors.neutral-lightest, size: 1.5em)
-  touying-slide(self: self, config: config, std.align(align, body))
+  ty.touying-slide(self: self, config: config, std.align(align, body))
 })
 
 /// Touying metropolis theme.
@@ -240,13 +245,13 @@
 #let ucph-metropolis-theme(
   aspect-ratio: "16-9",
   align: horizon,
-  header: self => utils.display-current-heading(
-    setting: utils.fit-to-width.with(grow: false, 100%),
+  header: self => ty.utils.display-current-heading(
+    setting: ty.utils.fit-to-width.with(grow: false, 100%),
     depth: self.slide-level,
   ),
   header-right: self => self.info.logo,
-  footer: none,
-  footer-right: context utils.slide-counter.display() + " / " + utils.last-slide-number,
+  footer: self => ucph_utils.section-links(self),
+  footer-right: context ty.utils.slide-counter.display() + " / " + ty.utils.last-slide-number,
   footer-progress: true,
   ..args,
   body,
@@ -261,18 +266,18 @@
     show regex("\d{4}"): set text(blue)
     it
   }
-  show: touying-slides.with(
-    config-page(paper: "presentation-" + aspect-ratio, header-ascent: 30%, footer-descent: 30%, margin: (
+  show: ty.touying-slides.with(
+    ty.config-page(paper: "presentation-" + aspect-ratio, header-ascent: 30%, footer-descent: 30%, margin: (
       top: 3em,
       bottom: 1.5em,
       x: 2em,
     )),
-    config-common(
+    ty.config-common(
       slide-fn: slide,
       new-section-slide-fn: new-section-slide,
     ),
-    config-methods(alert: (self: none, it) => text(fill: self.colors.primary)),
-    config-colors(
+    ty.config-methods(alert: (self: none, it) => text(fill: self.colors.primary)),
+    ty.config-colors(
       primary: colors.ucph_dark.red,
       primary-light: rgb("#d6c6b7"),
       secondary: colors.ucph_dark.petroleum,
@@ -281,7 +286,7 @@
       neutral-darkest: rgb("#23373b"),
     ),
     // save the variables for later use
-    config-store(
+    ty.config-store(
       align: align,
       header: header,
       header-right: header-right,

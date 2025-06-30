@@ -1,13 +1,10 @@
+#import "../src/lib.typ" as uc
 #import "@preview/touying:0.6.1" as ty
-#import "../src/ucph-metropolis.typ" as tym
-#import "../src/colors.typ" as colors
-#import "../src/utils.typ" as utils
 #import "@preview/numbly:0.1.0": numbly
 
-#show: tym.ucph-metropolis-theme.with(
+#show: uc.ucph-metropolis-theme.with(
   header-right: align(right, image("../assets/ucph_1_seal.svg", height: 1.1cm)),
-  footer: self => utils.section-links(self),
-  tym.config-info(
+  ty.config-info(
     title: [Title],
     subtitle: [Subtitle],
     author: [Authors],
@@ -17,11 +14,11 @@
   ),
 )
 
-#tym.title-slide()
+#uc.title-slide()
 
 
 // If you want a table of contents
-// #tym.components.adaptive-columns(outline(indent: 1em))
+// #uc.components.adaptive-columns(outline(indent: 1em))
 
 = First section
 Is it true?
@@ -33,9 +30,9 @@ Wow, this is a slide.
 wqewqe
 
 == Third slide
-#tym.cols(columns: (1fr, 1fr))[
+#uc.cols(columns: (1fr, 1fr))[
   #set align(center)
-  #tym.framed(title: "Wow")[
+  #uc.framed(title: "Wow")[
     $
       y_(i t) =
     $
@@ -50,7 +47,7 @@ wqewqe
 
 == Let me show you the colors
 
-#colors.show_color_pallette()
+#uc.show_color_pallette()
 
 == References
 #set text(size: 14pt)

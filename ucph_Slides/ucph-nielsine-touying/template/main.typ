@@ -1,10 +1,10 @@
-#import "@preview/ucph-touying-slides:0.1.0" as uts
-// should this have #import "@preview/touying:0.6.1": *??
+// #import "@preview/ucph-nielsine-slides:0.1.0" as uc
+#import "@preview/touying:0.6.1" as ty
+#import "../src/lib.typ" as uc
 
-#show: uts.ucph-metropolis-theme.with(
+#show: uc.ucph-metropolis-theme.with(
   header-right: align(right, image("assets/ucph_1_seal.svg", height: 1.1cm)),
-  footer: self => utils.section-links(self),
-  uts.config-info(
+  ty.config-info(
     title: [Title],
     subtitle: [Subtitle],
     author: [Authors],
@@ -14,11 +14,11 @@
   ),
 )
 
-#uts.title-slide()
+#uc.title-slide()
 
 
 // If you want a table of contents
-// #uts.components.adaptive-columns(outline(indent: 1em))
+// #uc.components.adaptive-columns(outline(indent: 1em))
 
 = First section
 Is it true?
@@ -30,9 +30,9 @@ Wow, this is a slide.
 wqewqe
 
 == Third slide
-#uts.cols(columns: (1fr, 1fr))[
+#uc.cols(columns: (1fr, 1fr))[
   #set align(center)
-  #uts.framed(title: "Wow")[
+  #uc.framed(title: "Wow")[
     $
       y_(i t) =
     $
@@ -47,7 +47,7 @@ wqewqe
 
 == Let me show you the colors
 
-#colors.show_color_pallette()
+#uc.show_color_pallette()
 
 == References
 #set text(size: 14pt)

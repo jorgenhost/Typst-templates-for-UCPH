@@ -1,0 +1,48 @@
+// Helper function to get current section number
+#let get-current-section() = {
+  context {
+    let current-page = here().page()
+    let sections = query(heading.where(level: 1))
+
+    if sections.len() == 0 {
+      return 0
+    }
+
+    let current-section = 0
+    for (i, section) in sections.enumerate() {
+      if section.location().page() <= current-page {
+        current-section = i + 1
+      } else {
+        break
+      }
+    }
+    current-section
+  }
+}
+
+// Add this helper function to generate section links
+#let section-links(self) = {
+  context {
+    let sections = query(heading.where(level: 1))
+    let current-section = get-current-section()
+
+    if sections.len() == 0 {
+      return []
+    }
+
+    sections
+      .enumerate()
+      .map(((i, section)) => {
+        let is-current = (i + 1) == current-section
+        let link-text = if is-current {
+          text(weight: "bold", fill: self.colors.primary, section.body)
+        } else {
+          text(fill: self.colors.neutral-darkest.lighten(30%), section.body)
+        }
+
+        // Create a clickable link to the section
+        link(section.location(), link-text)
+      })
+      .join(text(fill: self.colors.neutral-darkest.lighten(50%), " | "))
+  }
+}
