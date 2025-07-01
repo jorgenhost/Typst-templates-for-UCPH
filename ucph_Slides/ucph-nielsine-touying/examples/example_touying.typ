@@ -15,6 +15,8 @@
   ),
 )
 
+
+
 #uc.title-slide()
 
 
@@ -65,3 +67,8 @@ wqewqe
 == References
 #set text(size: 14pt)
 #bibliography("bibliography.bib", style: "harvard-cite-them-right", title: none)
+
+#show: ty.appendix
+= Appendix
+== Appendix
+123

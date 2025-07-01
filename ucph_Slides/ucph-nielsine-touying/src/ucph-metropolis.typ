@@ -247,6 +247,7 @@
 /// - footer (content, function): The footer of the slide. Default is `none`.
 ///
 /// - footer-right (content, function): The right part of the footer. Default is `context utils.slide-counter.display() + " / " + utils.last-slide-number`.
+/// - footer-appendix-label:
 ///
 /// - footer-progress (boolean): Whether to show the progress bar in the footer. Default is `true`.
 #let ucph-metropolis-theme(
@@ -258,12 +259,20 @@
   ),
   header-right: self => self.info.logo,
   footer: self => ucph_utils.section-links(self),
-  footer-right: context ty.utils.slide-counter.display() + " / " + ty.utils.last-slide-number,
+  footer-right: self => ucph_utils.slide-counter-label(self),
   footer-progress: true,
+  footer-appendix-label: self => ty.utils.display-current-short-heading(level: 1, style: (
+    self,
+    ty.utils.short-heading(self, "A"),
+  )),
   ..args,
   body,
 ) = {
   set text(size: 20pt)
+  let appendix() = {
+    set heading(numbering: "A", supplement: [Appendix])
+    counter(heading).update(0)
+  }
   show ref: it => {
     show regex("\d{4}"): set text(blue)
     it
@@ -300,6 +309,7 @@
       footer: footer,
       footer-right: footer-right,
       footer-progress: footer-progress,
+      footer-appendix-label: footer-appendix-label,
     ),
     ..args,
   )
