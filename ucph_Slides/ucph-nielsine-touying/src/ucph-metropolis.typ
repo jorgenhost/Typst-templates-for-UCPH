@@ -247,7 +247,7 @@
 /// - footer (content, function): The footer of the slide. Default is `none`.
 ///
 /// - footer-right (content, function): The right part of the footer. Default is `context utils.slide-counter.display() + " / " + utils.last-slide-number`.
-/// - footer-appendix-label:
+/// - footer-appendix-label (str): Suffix to put on the slide counter in the appendix. #link("https://github.com/spidersouris/touying-unistra-pristine/blob/8c19b94a20edbde35d06a8cb9c4fc4a1c3c8a79c/src/unistra.typ#L91-L106")[Based on] `touying-unistra-pristine`.
 ///
 /// - footer-progress (boolean): Whether to show the progress bar in the footer. Default is `true`.
 #let ucph-metropolis-theme(
@@ -261,7 +261,7 @@
   footer: self => ucph_utils.section-links(self),
   footer-right: self => ucph_utils.slide-counter-label(self),
   footer-progress: true,
-  // footer-appendix-label: self => ucph_utils.slide-counter-label(self),
+  footer-appendix-label: "A-",
   ..args,
   body,
 ) = {
@@ -302,6 +302,7 @@
       footer: footer,
       footer-right: footer-right,
       footer-progress: footer-progress,
+      footer-appendix-label: footer-appendix-label,
     ),
     ..args,
   )
