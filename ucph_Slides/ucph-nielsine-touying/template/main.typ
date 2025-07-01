@@ -3,7 +3,7 @@
 #import "../src/lib.typ" as uc
 
 #show: uc.ucph-metropolis-theme.with(
-  header-right: align(right, image("assets/ucph_1_seal.svg", height: 1.1cm)),
+  header-right: align(right, image("assets/ucph_1_seal.svg", height: 1.2cm)),
   ty.config-info(
     title: [Title],
     subtitle: [Subtitle],

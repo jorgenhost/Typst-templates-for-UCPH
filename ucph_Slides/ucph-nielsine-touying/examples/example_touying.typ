@@ -1,4 +1,5 @@
 #import "../src/lib.typ" as uc
+#import "../src/colors.typ" as colors
 #import "@preview/touying:0.6.1" as ty
 #import "@preview/numbly:0.1.0": numbly
 
@@ -48,6 +49,18 @@ wqewqe
 == Let me show you the colors
 
 #uc.show_color_pallette()
+
+== 123
+
+#uc.focus-slide()[
+  Wake up!
+]
+
+
+#let my_gradient = gradient.linear(colors.ucph_dark.red, colors.ucph_dark.blue, angle: 45deg)
+#uc.focus-slide(fill: my_gradient)[
+  Wake up with a gradient!
+]
 
 == References
 #set text(size: 14pt)
