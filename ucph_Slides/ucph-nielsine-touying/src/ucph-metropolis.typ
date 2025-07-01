@@ -261,18 +261,11 @@
   footer: self => ucph_utils.section-links(self),
   footer-right: self => ucph_utils.slide-counter-label(self),
   footer-progress: true,
-  footer-appendix-label: self => ty.utils.display-current-short-heading(level: 1, style: (
-    self,
-    ty.utils.short-heading(self, "A"),
-  )),
+  // footer-appendix-label: self => ucph_utils.slide-counter-label(self),
   ..args,
   body,
 ) = {
   set text(size: 20pt)
-  let appendix() = {
-    set heading(numbering: "A", supplement: [Appendix])
-    counter(heading).update(0)
-  }
   show ref: it => {
     show regex("\d{4}"): set text(blue)
     it
@@ -309,7 +302,6 @@
       footer: footer,
       footer-right: footer-right,
       footer-progress: footer-progress,
-      footer-appendix-label: footer-appendix-label,
     ),
     ..args,
   )

@@ -55,7 +55,7 @@
   let last = int(ty.utils.last-slide-counter.display())
 
   if current > last {
-    text(self.store.footer-appendix-label, style: "italic") + str(current)
+    text(ty.utils.display-current-heading-number(), style: "italic") + str(current)
   } else {
     ty.utils.slide-counter.display() + " / " + ty.utils.last-slide-number
   }
