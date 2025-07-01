@@ -19,7 +19,7 @@
 
 #uc.title-slide()
 
-
+// To do: Hero slide from `touying-unistra-pristine`?
 // If you want a table of contents
 // #uc.components.adaptive-columns(outline(indent: 1em))
 
