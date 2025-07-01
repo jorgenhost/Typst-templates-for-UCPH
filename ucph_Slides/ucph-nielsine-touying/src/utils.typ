@@ -1,3 +1,6 @@
+#import "@preview/touying:0.6.1" as ty
+#import "@preview/defined:0.1.0"
+
 // Helper function to get current section number
 #let get-current-section() = {
   context {
@@ -44,5 +47,18 @@
         link(section.location(), link-text)
       })
       .join(text(fill: self.colors.neutral-darkest.lighten(50%), " | "))
+  }
+}
+
+// Slide counter
+#let slide-counter-label(self) = context {
+  let current = int(ty.utils.slide-counter.display())
+  let last = int(ty.utils.last-slide-counter.display())
+
+  // This works because Touying freezes the slide counter in the appendix
+  if current > last {
+    text(self.store.footer-appendix-label, style: "italic") + str(current)
+  } else {
+    ty.utils.slide-counter.display() + " / " + ty.utils.last-slide-number
   }
 }

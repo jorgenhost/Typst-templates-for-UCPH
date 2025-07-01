@@ -15,9 +15,11 @@
   ),
 )
 
+
+
 #uc.title-slide()
 
-
+// To do: Hero slide from `touying-unistra-pristine`?
 // If you want a table of contents
 // #uc.components.adaptive-columns(outline(indent: 1em))
 
@@ -65,3 +67,8 @@ wqewqe
 == References
 #set text(size: 14pt)
 #bibliography("bibliography.bib", style: "harvard-cite-them-right", title: none)
+
+#show: ty.appendix
+= Appendix
+== Appendix
+123
